@@ -1,10 +1,16 @@
+/**
+ * Description: creating images and animations
+ * @author EdricLai
+*/
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import java.util.ArrayList;
 
 public class Sketch extends PApplet {
-  /*
-   * classes
+  /**
+   * obstacle object
+   * @author Edric
   */
   class Obstacle {
     // variables
@@ -13,7 +19,14 @@ public class Sketch extends PApplet {
     float fltPosY;
     float fltDiameter;
 
-    // create new object
+    /**
+     * initialize new objects
+     * @param image image display
+     * @param posX x-coordinate
+     * @param posY y-coordinate
+     * @param diameter diameter
+     * @author EdricLai
+    */
     public Obstacle (PImage image, float posX, float posY, int diameter) {
       this.imgObstacle = image;
       this.fltPosX = posX;
@@ -24,6 +37,7 @@ public class Sketch extends PApplet {
 
   /*
    * data structures
+   * and variables
    */
   ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
   PImage imgBackground;
@@ -61,7 +75,7 @@ public class Sketch extends PApplet {
     background(imgBackground);
 
     // create obstacles
-    create();
+    createObstacles((int) random(5, 10));
   }
   
   /**
@@ -70,20 +84,17 @@ public class Sketch extends PApplet {
    */
   public void draw() {
     // settings
-    disintegrate();
-    noStroke();
+    disintegrate(); // disable to permanently see background
 
     // player
-    fill(0, 255, 255);
     player();
 
     // obstacles
-    fill(255, 0, 0);
     obstacles();
   }
 
   /**
-   * disintegration
+   * disintegration effect
    * @author EdricLai
   */
   public void disintegrate() {
@@ -98,11 +109,13 @@ public class Sketch extends PApplet {
   }
 
   /**
-   * movement
+   * player code
    * @author EdricLai
   */
   public void player() {
     // visual
+    noStroke();
+    fill(0, 255, 255);
     ellipse(fltPlayerPosX, fltPlayerPosY, fltPlayerDiameter, fltPlayerDiameter);
 
     // movement
@@ -123,7 +136,7 @@ public class Sketch extends PApplet {
   }
 
   /**
-   * collision
+   * obstacle code
    * @author EdricLai
   */
   public void obstacles() {
@@ -157,11 +170,11 @@ public class Sketch extends PApplet {
 
   /**
    * create obstacle
+   * @param numObj number of obstacles
    * @author EdricLai
   */
-  public void create() {
-    // 5-10 obstacles
-    for (int i = 0; i <= random(5, 10); i++) {
+  public void createObstacles(int numObj) {
+    for (int i = 0; i <= numObj; i++) {
       // create object with random properties
       int diameter = (int) (fltScale / random(1000, 20000));
       obstacles.add(new Obstacle(loadImage("images/asteroid.png"), random(width), random(height), diameter));
