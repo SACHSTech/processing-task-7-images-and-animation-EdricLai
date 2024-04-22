@@ -37,12 +37,13 @@ public class Sketch extends PApplet {
 
   /*
    * data structures
-   * and variables
+   * and global variables
    */
   ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
   PImage imgBackground;
   float fltScale;
   float fltSpeed;
+  float fltIncNum;
   float fltPlayerPosX;
   float fltPlayerPosY;
   float fltPlayerDiameter;
@@ -53,7 +54,7 @@ public class Sketch extends PApplet {
    */
   public void settings() {
     // screen size
-    size(1000, 600);
+    size(1000, 700);
   }
 
   /** 
@@ -65,6 +66,7 @@ public class Sketch extends PApplet {
     imgBackground = loadImage("images/space.png");
     fltScale = width * height;
     fltSpeed = fltScale / 40000;
+    fltIncNum = 0;
     fltPlayerPosX = width / 2;
     fltPlayerPosY = height / 2;
     fltPlayerDiameter = fltScale / 20000;
@@ -103,7 +105,7 @@ public class Sketch extends PApplet {
     strokeWeight(fltScale / 100000);
 
     // random lines
-    for (int i = 0; i <= 20; i++) {
+    for (int i = 0; i <= 40; i++) {
       line(random(width), random(height), random(width), random(height));
     }
   }
@@ -163,11 +165,26 @@ public class Sketch extends PApplet {
       }
 
       // movement
-      obj.fltPosX += (random(-fltSpeed, fltSpeed)) / 5;
-      obj.fltPosY += (random(-fltSpeed, fltSpeed)) / 5;
+      // random
+      // obj.fltPosX += (random(-fltSpeed, fltSpeed)) / 5;
+      // obj.fltPosY += (random(-fltSpeed, fltSpeed)) / 5;
+      
+      // sinusoidal
+      // obj.fltPosX += fltSpeed / 10;
+      // obj.fltPosY += (float) Math.sin(radians(obj.fltPosX));
+      
+      // parabolic
+      // fltIncNum += 0.01;
+      // obj.fltPosX += fltSpeed / 10;
+      // obj.fltPosY += Math.pow(fltIncNum, 2);
+      
+      // circular
+      // fltIncNum += 0.1f;
+      // obj.fltPosY += (cos(radians(fltIncNum)) - cos(radians(fltIncNum - 0.1f))) * 10 * obj.fltDiameter;
+      // obj.fltPosX += (sin(radians(fltIncNum)) - sin(radians(fltIncNum - 0.1f))) * 10 * obj.fltDiameter;
     }
   }
-
+  
   /**
    * create obstacle
    * @param numObj number of obstacles
